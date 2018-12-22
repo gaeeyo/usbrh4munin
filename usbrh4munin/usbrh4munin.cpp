@@ -31,7 +31,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	GetDevices(devices);
 
 	if (devices.GetSize() == 0) {
-		perror(_T("NO DEVICE"));
+		_tperror(_T("NO DEVICE"));
 	}
 
 
@@ -39,7 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	for (int j=0; j<argc; j++) {
 		if (_tcscmp(argv[j], _T("name")) == 0) {
-			_tprintf("usbtemp");
+			_tprintf(_T("usbtemp"));
 		}
 		if (_tcscmp(argv[j], _T("config")) == 0) {
 			_tprintf(
@@ -64,9 +64,16 @@ int _tmain(int argc, _TCHAR* argv[])
 		for (int k=0; k<devices.GetSize(); k++) {
 			double		temp = 0;
 			double		humid = 0;
-			GetTempHumid(devices[k],  &temp, &humid);
-			_tprintf(_T("usb%dtemp.value %f") LF, k, temp);
-			_tprintf(_T("usb%dhumid.value %f") LF, k, humid);
+			int result = GetTempHumidTrue(devices[k],  &temp, &humid);
+
+			if (result == 0) {
+				_tprintf(_T("usb%dtemp.value %f") LF, k, temp);
+				_tprintf(_T("usb%dhumid.value %f") LF, k, humid);
+			}
+			else {
+				_tprintf(_T("usb%dtemp.value ERROR") LF, k);
+				_tprintf(_T("usb%dhumid.value ERROR") LF, k);
+			}
 		}
 		_tprintf(_T(".") LF);
 		//_tprintf();

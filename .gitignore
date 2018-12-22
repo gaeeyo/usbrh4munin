@@ -5,3 +5,8 @@
 Debug
 Release
 USBMeter
+.vs
+*.lib
+*.vcxproj
+*.vcxproj.*
+usbrh.h
