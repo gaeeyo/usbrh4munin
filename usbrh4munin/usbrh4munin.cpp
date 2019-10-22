@@ -11,7 +11,7 @@
 
 #pragma comment(lib,"USBMeter.lib")
 
-HRESULT GetDevices(CSimpleArray<BSTR> &devices) {
+HRESULT GetDevices(CSimpleArray<CComBSTR> &devices) {
 	int index = 0;
 	while (1) {
 		CComBSTR name = FindUSB(&index);
@@ -27,7 +27,7 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	_setmode(_fileno(stdout), _O_BINARY);
 
-	CSimpleArray<BSTR> devices;
+	CSimpleArray<CComBSTR> devices;
 	GetDevices(devices);
 
 	if (devices.GetSize() == 0) {
